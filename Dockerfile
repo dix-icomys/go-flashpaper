@@ -1,10 +1,17 @@
-FROM golang:1.7.1-onbuild
+FROM golang:latest as BUILD
 
-RUN git clone https://github.com/rawdigits/go-flashpaper
+ADD . /go/src/github.com/dix-icomys/go-flashpaper
 
-WORKDIR go-flashpaper
-RUN go build
+WORKDIR /go/src/github.com/dix-icomys/go-flashpaper
+
+RUN go get && go build
+
+RUN ln -s /go/src/github.com/dix-icomys/go-flashpaper/go-flashpaper /usr/local/bin
+
+# FROM alpine
+
+# COPY --from=BUILD /go/src/github.com/dix-icomys/go-flashpaper/bin/* /usr/local/bin
 
 EXPOSE 8080
 
-ENTRYPOINT ["./go-flashpaper"] 
+ENTRYPOINT ["go-flashpaper"]
