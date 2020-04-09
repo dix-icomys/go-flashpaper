@@ -2,11 +2,12 @@ FROM golang:latest as BUILD
 
 ADD . /go/src/github.com/dix-icomys/go-flashpaper
 
-WORKDIR /go/src/github.com/dix-icomys/go-flashpaper
+# WORKDIR /go/src/github.com/dix-icomys/go-flashpaper
 
-RUN go get && go build
-
-RUN ln -s /go/src/github.com/dix-icomys/go-flashpaper/go-flashpaper /usr/local/bin
+RUN cd /go/src/github.com/dix-icomys/go-flashpaper && \
+  go get && \
+  go build -o /usr/local/bin && \
+  rm -rf /go/*
 
 # FROM alpine
 
