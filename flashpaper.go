@@ -466,7 +466,8 @@ func main() {
 	} else {
 		fmt.Println("AutoCert: False.")
 		//Key and cert are coming from Let's Encrypt.
-		err := http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil)
+		err := http.ListenAndServe(":8080", nil)
+		// err := http.ListenAndServeTLS(":8443", "server.crt", "server.key", nil)
 		if err != nil {
 			fmt.Printf("main(): %s\n", err)
 			fmt.Printf("Errors usually mean you don't have the required server.crt or server.key files.\n")
